@@ -51,3 +51,5 @@ kodou.kodou(part)
 Get Kodou's source from it's [GitHub repository](https://github.com/amirteymuri/Kodou) and put it on your Python path. Of course you also need [LilyPond](http://lilypond.org/). For some fine microtonal adjustments you might want to have [Ekmelily](http://www.ekmelic-music.org/en/extra/ekmelily.htm) installed besides LilyPond.
 
 # [Documentation](./documentation.md)
+# Some examples:
+  * [Majid Amani, Jan e Maryam](./examples/amani.md)
