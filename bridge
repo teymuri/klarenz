@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+
+import argparse
+from kodou import *
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("src",
+                    type=str,
+                    help="talks to Kodou")
+
+# This is only the case when midi choosed
+parser.add_argument("--portname",
+                    type=str,
+                    help="midi device port name")
+
+args = parser.parse_args()
+
+
+def call_kodou_midi(msg_dict):
+    part_count = len(msg_dict)
+    parts_events = []
+    for chnl, data in msg_dict.items():
+        notes = data["pitch"]
+        beats = [round(o, 1) for o in data["onset"]]
+        durations = data["dur"]
+        parts_events.append({"notes": notes,
+                             "beats": beats})
+    parts = [Part(e) for e in parts_events]
+    kodou(parts)
+
+# Choose source
+if args.src == "midi":
+    import src.bridge.midi_bridge as md
+    port_name = args.portname
+    md.connect_dev_to_rtmidi(md.INPUT, port_name)
+    msg_dict = dict()
+    try:
+        msg_dict = md.run(md.INPUT, msg_dict)
+    except KeyboardInterrupt:
+        action = input("?\n")
+        print("=========", action)
+        call_kodou_midi(msg_dict)
+elif args.src == "keyboard":
+    pass
+else:
+    raise TypeError("Unknown srouce!")

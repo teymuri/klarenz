@@ -1,0 +1,11 @@
+1. Legato bug:
+
+kodou(Part({"notes": range(60, 72),
+            "beats": [0, 1.5],
+            "durations": {0: 1.5, 1.5: .2}},
+           {"legato": {"solid": [(0, 1.5)]}}))
+
+2. Notehead dicts are changed after a running, somewhere a dict_integrate_ip in use?
+
+3. Implement Text
+4. lin_interp in sine melody is false

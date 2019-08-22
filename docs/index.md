@@ -1,5 +1,5 @@
 
-# A minimalist Python package for algorithmic music notation
+## A minimalist Python package for algorithmic music notation
 
 [Kodou](https://www.urbandictionary.com/define.php?term=kodou) is a small package for engraving music written in Python 3.5.3. It uses the [Lilypond](http://lilypond.org/) compiler (versions 2.18 to 2.21.0) for rendering and generating its output data.
 
