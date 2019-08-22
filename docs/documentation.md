@@ -102,8 +102,8 @@ As of this writing (23. Aug. 2018) following keys can be set:
 
   -  __ly_version__: Lilypond version. Defaults to `2.21.0`.
   -  __ly_language__: Lilypond language. Defaults to `deutsch`.
-  -  __viewer__: path to the PDF-viewer binary. Defaults to `/usr/bin/evince`.
-  -  __ly_exe__: path to the Lilypond binary. Defaults to `/usr/local/bin/lilypond`.
+  -  __pdf_viewer__: path to the PDF-viewer binary. Defaults to `/usr/bin/evince`.
+  -  __ly_bin__: path to the Lilypond binary. Defaults to `/usr/local/bin/lilypond`.
   -  __ly_paper_size__: paper format used by Lilypond. Defaults to `quarto`. [More formats](http://lilypond.org/doc/v2.19/Documentation/notation/predefined-paper-sizes.en.html)
   -  __ly_staff_size__: staff size used by Lilypond. Defaults to `14`.
   -  __load_ekmelily__: whether the _ekmelily_ system should be loaded for microtonal notation (`yes`) or not (`no`). Defaults to `yes`.
