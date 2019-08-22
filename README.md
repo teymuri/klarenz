@@ -1,5 +1,10 @@
 
-Kodou is a small package for engraving music written in Python 3.5.3. It was originally inspired by [a tutorial by Bernd Klein](https://www.python-course.eu/python_scores.php) on creating musical scores using Python.
+__Kodou__ is a small package for engraving music written in Python 3.5.3. It was originally inspired by [a tutorial by Bernd Klein](https://www.python-course.eu/python_scores.php) on creating musical scores using Python.
+
+
+A fast demo:
+
+
 
 Kodou is under active development. Feel free to report bugs, instabilities or feature wishes.
 
