@@ -41,13 +41,11 @@ Kodou outputs:
 ![Kodou's output](./docs/jpg/start_kodou_out.jpg)
 
 
-Kodou is under active development. Feel free to report bugs, instabilities or feature wishes.
-
-
-For more information please visit [Kodou's Homepage](https://kodou.readthedocs.io).
+For more information and examples please visit [Kodou's Homepage](https://kodou.readthedocs.io).
 <br>
 For discussion and questions please join [kodou's googlegroup](https://groups.google.com/d/forum/kodou-discuss) or send an email to the mailing list: [kodou-discuss@googlegroups.com].
 <br>
+Kodou is under active development. Feel free to report bugs, instabilities or feature wishes.
 
 - - -
 
