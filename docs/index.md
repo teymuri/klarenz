@@ -53,3 +53,4 @@ Get Kodou's source from it's [GitHub repository](https://github.com/amirteymuri/
 # [Documentation](./documentation.md)
 # Some examples:
   * [Majid Amani, Jan e Maryam](./examples/amani.md)
+  * [Sine melody](./examples/sine_melody.md)
