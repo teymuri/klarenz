@@ -37,6 +37,9 @@ part = kodou.Part(events={
 kodou.kodou(part)
 ```
 
+Kodou outputs:
+![Kodou's output](./docs/jpg/start_kodou_out.jpg)
+
 
 Kodou is under active development. Feel free to report bugs, instabilities or feature wishes.
 
