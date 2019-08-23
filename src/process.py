@@ -464,6 +464,6 @@ def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
             f.write(command)
             f.write("\n")
         f.write("\n" * 4)
-    viewer = dot_kodou_commands.get("pdf_viewer", "/usr/bin/evince")
+    viewer = dot_kodou_commands.get("pdf_viewer", "/usr/bin/zathura")
     lilypond = dot_kodou_commands.get("ly_bin", "/usr/local/bin/lilypond")
     return viewer, lilypond
