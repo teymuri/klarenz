@@ -2,9 +2,9 @@
 
 ## A minimalist Python package for algorithmic music notation
 
-[Kodou](https://www.urbandictionary.com/define.php?term=kodou) is a small package for engraving music written in Python 3.5.3. It uses the [Lilypond](http://lilypond.org/) compiler (versions 2.18 to 2.21.0) for rendering and generating its output data.
+[Kodou](https://www.urbandictionary.com/define.php?term=kodou) is a small package for algorithmic music notation which runs on top of the [Lilypond](http://lilypond.org/)(versions 2.18 to 2.21.0) compiler. It has been designed to be as minimalistic as possible, yet allowing creation of complex musical structures. It's public API consists of only two objects: a class **Part** (representing a musical line which itself could be mono- or polyphonic) and a main processing function **kodou**. Kodou's main strength however lies in it's treatment of time: rhythm is not constructed dependent on duration, but from points (notes/chords) alongside of a timeline and as such as a function of time. Setting variant durations other than the ones imposed by Kodou is possible.
 
-Kodou was originally inspired by [a tutorial by Bernd Klein](https://www.python-course.eu/python_scores.php) on creating musical scores using Python.
+Kodou was originally inspired by [a tutorial by Bernd Klein](https://www.python-course.eu/python_scores.php) on creating musical scores using Python3.
 
 Kodou is under active development. Feel free to report bugs, instabilities or feature wishes.
 For discussion and questions please join [kodou's googlegroup](https://groups.google.com/d/forum/kodou-discuss) or send an email to the mailing list: kodou-discuss@googlegroups.com
