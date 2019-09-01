@@ -13,16 +13,7 @@ In LilyPond (and almost all other music notation software) you have to supply th
 which looks very strighforward, as the example is still very basic. Now consider a slightly more complex example, where you want the second triplet eight note to be subdivided itself into five thirty-second notes, from which the third is again the middle c and the remaining are rests:
 
 ```lilypond
-{\tuplet 3/2 
- { 
-   r8 
-   \tuplet 5/4
-   {
-     r32 r c' r r
-   }
-   r8
- }
-}
+{\tuplet 3/2 { r8 \tuplet 5/4 { r32 r c' r r } r8 }}
 ```
 
 Although still quite basic in terms of rhythm, you are starting to do more typing work by nesting the second ```\tuplet``` command inside the first one, and calculating the correct duration indications for the new notes. 
