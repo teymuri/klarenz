@@ -1,6 +1,10 @@
 # Rhythm in Kodou
 
-Suppose you want to have a the note middle c as the second eight-note of a triole. In LilyPond (and almost all other music notation software) you have to supply the software excplicitely about with durations, in order to construct the rhythm. This approach also requires durational indications of all rests. In LilyPond you would do this as:
+Suppose you want to have a the note middle c as the second eight-note of a triole:
+
+![triole_A](./jpg/about_time_triole.png)
+
+In LilyPond (and almost all other music notation software) you have to supply the software excplicitely about with durations, in order to construct the rhythm. This approach also requires durational indications of all rests. In LilyPond you would do this as:
 
 ```lilypond
 {\tuplet 3/2 { r8 c'8 r8 }}
