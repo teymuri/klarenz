@@ -12,7 +12,11 @@ In LilyPond (and almost all music notation software) you have to supply the soft
 
 which looks very straighforward, as the example is still very basic.
 
-Now consider a slightly more complex example, where you want the second triplet eight note to be subdivided itself into five thirty-second notes, from which the third one is C4 and the remaining are rests. Again in LilyPond:
+Now consider a slightly more complex example, where you want the second triplet eight note to be subdivided itself into five thirty-second notes, from which the third one is C4 and the remaining are rests:
+
+![triole_A](./jpg/about_time-2.png)
+
+Again in LilyPond:
 
 ```
 {\tuplet 3/2 { r8 \tuplet 5/4 { r32 r c' r r } r8 }}
