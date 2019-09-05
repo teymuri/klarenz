@@ -22,4 +22,4 @@ Again in LilyPond:
 {\tuplet 3/2 { r8 \tuplet 5/4 { r32 r c' r r } r8 }}
 ```
 
-Although still quite basic in terms of rhythm, you are starting to do more typing work by nesting the second ```\tuplet``` command inside the first one, and also thinking about the correct duration values for the new notes (32). 
+Although still quite basic in terms of rhythm, you are starting to do more typing work by nesting the second ```\tuplet``` command inside the first one, and also thinking about the correct duration values for the new notes and rests (32). 
