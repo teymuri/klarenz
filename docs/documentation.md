@@ -1,6 +1,6 @@
 
 
-Kodou's interface consists of a class [__Part__](#Part) and a main processing function [__kodou__](#kodou). A configuration file [__.kodou__](#.kodou) can be used to set some system variables.
+Kodou's interface consists of a class [__Part__](#Part) and a main processing function [__kodou__](#kodou). A configuration file [__.kodou__](#dotkodou) can be used to set some system variables.
 
 - - -
 
@@ -94,7 +94,7 @@ The main processing function with following parameters:
 
 
 - - -
-# .kodou
+# dotkodou
 
 The content of this configuration file will be used for setting some kodou and system variables. The path to this file defaults to `/home/user/.kodou` and can be reset in the `dot_kodou` parameter of the [kodou](#kodou) function.<br>
 The syntax is `key = value`. Lines starting with a pound sign (`#`) are comments.<br>
