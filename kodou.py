@@ -2,9 +2,9 @@
 from subprocess import *
 from time import sleep
 from os.path import expanduser
-from src.classes import (Part, _PaperPart)
-from src.process import (prepare_ly, dict_integration_ip, dict_integrate)
-from src.constants import (GLOBAL_METADATA, LP_OUTPUT_FORMATS)
+from .src.classes import (Part, _PaperPart)
+from .src.process import (prepare_ly, dict_integration_ip, dict_integrate)
+from .src.constants import (GLOBAL_METADATA, LP_OUTPUT_FORMATS)
 
 
 def kodou(score,
