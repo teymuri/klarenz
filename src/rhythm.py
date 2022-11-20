@@ -1,7 +1,7 @@
 
 from itertools import groupby
 from fractions import *
-from math import (ceil, floor, log, modf)
+from math import (ceil, floor, log, modf, gcd)
 
 
 def lcm(x, y):
