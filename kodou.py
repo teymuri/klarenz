@@ -36,15 +36,8 @@ def kodou(score,
     else:
         raise TypeError("Invalid Parts!")
     # process midi
-    # if set(outputs).intersection(["midi", "mid"]):
-    #     midi_name = ".".join([file_name, "mid"])
-    #     midi_path = "/".join([path_, midi_name])
-    #     if solo:                   # solo (score is a Part object)
-    #         midi_stream = _SoloMidiStream(score)
-    #         midi_stream.prepare()
-    #         midi_stream.write_file(midi_path)
-    #     else:
-    #         pass
+    if set(outputs).intersection(["midi", "mid"]):
+        raise NotImplementedError("Midi output is not there yet :-(")
     # process papers
     non_midi_formats = set(outputs).difference(("midi", "mid"))
     if non_midi_formats: # write ly data
