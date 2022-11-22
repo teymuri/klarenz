@@ -152,3 +152,6 @@ LP_OUTPUT_FORMATS = {
     "svg": "-dbackend=svg",
     # "eps": "-dbackend=eps"
 }
+
+# Seconds to wait before opening the pdf with the pdf viewer
+PDFVIEW_WAIT = 4
