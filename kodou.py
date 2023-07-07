@@ -5,18 +5,18 @@ from os.path import expanduser
 from src.classes import (Part, _PaperPart)
 from src.process import (prepare_ly, dict_integration_ip, dict_integrate)
 from src.constants import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
-                          PDFVIEW_WAIT)
+                          PDFVIEW_WAIT, DOTFILE)
 
 
-def kodou(score,
+def pyly(score,
           metadata={},
-          file_name="kodou",
+          file_name="pyly-test",
           path="/tmp",
-          dot_kodou="~/.kodou",
+          dotfile=DOTFILE,
           outputs=["pdf"],
           view=True):
     """the main processing function"""
-    dot_kodou = expanduser(dot_kodou)
+    dotfile = expanduser(dotfile)
     path_ = expanduser(path)
     # add missing md from GLOBALS to metadata
     # dict_integration_ip(metadata, GLOBAL_METADATA)
@@ -60,7 +60,7 @@ def kodou(score,
         # prepare ly file
         ly_name = ".".join((file_name, "ly"))
         ly_path = "/".join((path_, ly_name))
-        viewer, lilypond = prepare_ly(ly_path, dot_kodou, parts_global_ly_commands)
+        viewer, lilypond = prepare_ly(ly_path, dotfile, parts_global_ly_commands)
         # write to ly file
         with open(ly_path, "a") as ly:
             ly.write("%%% Parts %%%" + "\n")

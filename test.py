@@ -1,16 +1,38 @@
+from random import randint
 from kodou import *
-def ntimesx(n, x):
-    return [x for _ in range(n)]
-kodou(
-    (
+pyly(
+    [
         Part(
-            {"notes": [ntimesx(60, 60), 
-                      #  ntimesx(60, 60),
-                      # ntimesx(60, 60)
-                      ],
-             "beats": [[x*.5 for x in range(60)], 
-                       [x*1/3 for x in range(60)],
-                      [x*1/5 for x in range(60)]]}
+            {
+                "notes": range(72, 84),
+                "beats": [2/3 * i for i in range(12)],
+                # "durations": {
+                #     0: {
+                #         i:3/26 for i in range(12)
+                #     }
+                # }
+            },
+            # metadata
+            {
+                "what": {"name": "fofo"},
+                # "staff": {"n": 3}
+            }
+        ),
+        Part(
+            {
+                "notes": range(72, 84),
+                "beats": [2/3 * i for i in range(12)],
+                # "durations": {
+                #     0: {
+                #         i:3/26 for i in range(12)
+                #     }
+                # }
+            },
+            # metadata
+            {
+                "what": {"name": "yoyo"},
+                # "staff": {"n": 3}
+            }
         )
-    )
+    ]
 )

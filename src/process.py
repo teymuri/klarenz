@@ -62,7 +62,7 @@ def _equivalent_fractions(f1, f2):
 
 def distribute_voice_staff(voice, staff):
     """divide voices btwn. stave"""
-    assert voice >= staff, "Number of stave should be le number of voices!"
+    assert voice >= staff, "Number of stave should be less than number of voices!"
     d, m = divmod(voice, staff)
     L = staff * [d]
     for i in range(m):
