@@ -95,7 +95,7 @@ class _Space:
 class _Events:
     """dict with keys: beats, notes, opt:durations"""
     def __init__(self, events):
-        beats = events["beats"]
+        beats = events["onsets"]
         notes = events["notes"]
         # create the stream
         self.stream = dict()
