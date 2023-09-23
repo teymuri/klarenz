@@ -2,11 +2,11 @@
 from math import modf
 from copy import copy
 from fractions import Fraction
-from .rhythm import (_superior_binary, lcm, superior_x, factorize,
+from rhythm import (_superior_binary, lcm, superior_x, factorize,
                      nearest_binary, tuplet_label)
-from .ly import (PAPER, HEADER_TAGLINE,
+from ly import (PAPER, HEADER_TAGLINE,
                  UNEQUAL_LENGTH_MEASURES_POLYMETRY)
-from .constants import (LIMIT, NOTEHEADS, CLEFS,
+from constants import (LIMIT, NOTEHEADS, CLEFS,
                         PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
                         ARTICULATIONS)
 
@@ -122,11 +122,15 @@ def _process_clef(clef):
 def _process_timesig(timesig):
     return "\\time {}/{} ".format(timesig[0], timesig[1])
 
+class LilyNoteheadError(Exception):
+    pass
 
 def _process_notehead(notehead):
     if notehead.startswith("\\revert"):
         return notehead
     else:
+        if notehead not in NOTEHEADS:
+            raise LilyNoteheadError(f"{notehead} is not a valid notehead")
         return NOTEHEADS[notehead]
     
     

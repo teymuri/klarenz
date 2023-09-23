@@ -1,6 +1,6 @@
 from random import randint
 # import computil
-from kodou import *
+from main import *
 
 # print(computil.utils.note_to_number)
 
