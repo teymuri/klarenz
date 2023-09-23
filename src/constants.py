@@ -155,3 +155,8 @@ LP_OUTPUT_FORMATS = {
 
 # Seconds to wait before opening the pdf with the pdf viewer
 PDFVIEW_WAIT = 4
+
+
+DOTFILE = "~/.pyly"
+
+
