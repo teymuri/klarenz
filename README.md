@@ -1,10 +1,6 @@
 
-__Barlow__ is a small package for engraving music written in Python 3.5.3.
+__Barlow__ is a very minimalist yet powerful Python (>= 3.5) package for engraving music.
 
-<!-- For more information and examples please visit [Barlow's Homepage](https://ertpoi.github.io/kodou/). -->
-<!-- <br> -->
-<!-- For discussion and questions please join [Barlow's googlegroup](https://groups.google.com/d/forum/kodou-discuss) or send an email to the mailing list: [kodou-discuss@googlegroups.com]. -->
-<!-- <br> -->
 
 - - -
 
