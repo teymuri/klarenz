@@ -1,5 +1,5 @@
 
-__Barlow__ is a very minimalist yet powerful Python (>= 3.5) package for engraving music.
+[__Barlow__](https://de.wikipedia.org/wiki/Clarence_Barlow) is a very minimalist and _pythonistic_ (>= 3.5) package for compiling Lilypond sheet music.
 
 
 - - -
