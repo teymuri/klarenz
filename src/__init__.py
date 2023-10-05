@@ -10,8 +10,8 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License at <http://www.gnu.org/licenses/>
 for more details.
-Copyright (c) 2018, 2019 Amir Teymuri
+Copyright (c) 2018, 2023 Amir Teymuri
 """
 
-from .klarenz import klarenz
+from .main import proc
 from .classes import Part

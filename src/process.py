@@ -2,11 +2,11 @@
 from math import modf
 from copy import copy
 from fractions import Fraction
-from rhythm import (_superior_binary, lcm, superior_x, factorize,
+from .rhythm import (_superior_binary, lcm, superior_x, factorize,
                      nearest_binary, tuplet_label)
-from ly import (PAPER, HEADER_TAGLINE,
+from .ly import (PAPER, HEADER_TAGLINE,
                  UNEQUAL_LENGTH_MEASURES_POLYMETRY)
-from constants import (LIMIT, NOTEHEADS, CLEFS,
+from .constants import (LIMIT, NOTEHEADS, CLEFS,
                         PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
                         ARTICULATIONS)
 

@@ -2,15 +2,15 @@
 from subprocess import *
 from time import sleep
 from os.path import expanduser
-from classes import (Part, _PaperPart)
-from process import (prepare_ly, dict_integration_ip, dict_integrate)
-from constants import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
+from .classes import (Part, _PaperPart)
+from .process import (prepare_ly, dict_integration_ip, dict_integrate)
+from .constants import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
                           PDFVIEW_WAIT, DOTFILE)
 
 
-def barlow(score,
+def proc(score,
           metadata={},
-          file_name="barlow-test",
+          file_name="klarenz-test",
           path="/tmp",
           dotfile=DOTFILE,
           outputs=["pdf"],

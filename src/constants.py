@@ -157,6 +157,6 @@ LP_OUTPUT_FORMATS = {
 PDFVIEW_WAIT = 4
 
 
-DOTFILE = "~/.pyly"
+DOTFILE = "~/.klarenz"
 
 
