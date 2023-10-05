@@ -3,31 +3,34 @@
 
 Klarenz requires Python 3.5 or later:
 
-..  code-block::
+```
     ~$ python --version
     Python 3.10.12
+```
 
 Klarenz requires LilyPond 2.21.0 or later.
 Make sure LilyPond is installed: http://lilypond.org/development.html
 Make sure LilyPond is callable from the commandline:
 
-..  code-block::
+```
     $ lilypond --version
     GNU LilyPond 2.22.2
+```
 
 Create a Python 3 virtual environment for Klarenz: https://docs.python.org/3/tutorial/venv.html
 Activate the virtual environment and then use pip to install Klarenz:
 
-..  code-block::
+```
     ~$ python -m pip install klarenz
+```
 
 Start Python, import Klarenz and print some notes:
 
-..  code-block::
 
-    ~$ python
-    >>> from klarenz import *
-    >>> proc(Part({"notes": range(60, 72), "onsets": range(0, 12)}))
+```
+    from klarenz import *
+    proc(Part({"notes": range(60, 72), "onsets": range(0, 12)}))
+```
 
 
 ..  image:: docs/readme-example.jpg
