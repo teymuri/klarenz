@@ -28,12 +28,12 @@ Start Python, import Klarenz and print some notes:
 
 
 ```
->>> from klarenz import *
->>> proc(Part({"notes": range(60, 72), "onsets": range(0, 12)}))
+from klarenz import *
+proc(Part({"pchs": range(60, 72), "onsets": range(0, 12)}))
 ```
 
 
-![Quick Test Klarenz Music Notation](https://github.com/teymuri/klarenz/blob/main/docs/jpg/readme-example.jpg)
+![Quick Test Klarenz Music Notation](docs/jpg/readme-example.jpg)
 
 
 
