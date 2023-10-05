@@ -33,7 +33,7 @@ Start Python, import Klarenz and print some notes:
 ```
 
 
-..  image:: docs/readme-example.jpg
+![Quick Test Klarenz Music Notation](docs/readme-example.jpg)
 
 
 
