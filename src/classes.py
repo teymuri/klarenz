@@ -93,10 +93,10 @@ class _Space:
 
 
 class _Events:
-    """dict with keys: beats, notes, opt:durations"""
+    """dict with keys: beats, pchs, opt:durations"""
     def __init__(self, events):
         beats = events["onsets"]
-        notes = events["notes"]
+        notes = events["pchs"]
         # create the stream
         self.stream = dict()
         # notes have been specified at creation time
