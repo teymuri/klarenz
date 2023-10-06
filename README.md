@@ -17,8 +17,7 @@ $ lilypond --version
 GNU LilyPond 2.22.2
 ```
 
-Create a Python 3 virtual environment for Klarenz: https://docs.python.org/3/tutorial/venv.html
-Activate the virtual environment and then use pip to install Klarenz:
+Use pip to install Klarenz:
 
 ```
 ~$ python -m pip install klarenz
@@ -31,9 +30,31 @@ Start Python, import Klarenz and print some notes:
 from klarenz import *
 proc(Part({"pchs": range(60, 72), "onsets": range(0, 12)}))
 ```
-
-
 ![Quick Test Klarenz Music Notation](docs/jpg/readme-example.jpg)
+
+If you want to use two instruments instead of just one, simply pass a list of parts to the processor function proc, rather than just one part:
+```
+proc(
+    [
+        Part({"pchs": range(72, 84), "onsets": range(0, 12)}),
+        Part({"pchs": range(67, 79), "onsets": range(0, 12)})
+    ]
+)
+```
+![Quick Test Klarenz Music Notation](docs/jpg/readme-example2.jpg)
+
+To have more than one voice in each part, pack multiple pitch and onset collections in a list:
+```
+proc(
+    [
+        Part({"pchs": [range(72, 84), range(65, 77)], "onsets": [range(0, 12)] * 2}),
+        Part({"pchs": [range(60, 72), range(67, 79)], "onsets": [range(0, 12)] * 2})
+    ]
+)
+```
+![Quick Test Klarenz Music Notation](docs/jpg/readme-example3.jpg)
+
+Simple and pythonic!
 
 
 
