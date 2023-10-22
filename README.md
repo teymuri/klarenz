@@ -17,7 +17,7 @@ $ lilypond --version
 GNU LilyPond 2.22.2
 ```
 
-Use pip to install Klarenz:
+Klarenz is on [Pypi](https://pypi.org/project/klarenz/), so simply use pip to install it:
 
 ```
 ~$ python -m pip install klarenz
