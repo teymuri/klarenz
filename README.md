@@ -28,7 +28,7 @@ Start Python, import Klarenz and print some notes:
 
 ```
 from klarenz import *
-proc(Part({"pchs": range(60, 72), "onsets": range(0, 12)}))
+proc(Part({"pchs": range(60, 72), "onsets": range(12)}))
 ```
 ![Quick Test Klarenz Music Notation](docs/jpg/readme-example.jpg)
 
@@ -36,8 +36,8 @@ If you want to use two instruments instead of just one, simply pass a list of pa
 ```
 proc(
     [
-        Part({"pchs": range(72, 84), "onsets": range(0, 12)}),
-        Part({"pchs": range(67, 79), "onsets": range(0, 12)})
+        Part({"pchs": range(72, 84), "onsets": range(12)}),
+        Part({"pchs": range(67, 79), "onsets": range(12)})
     ]
 )
 ```
@@ -47,8 +47,8 @@ To have more than one voice in each part, pack multiple pitch and onset collecti
 ```
 proc(
     [
-        Part({"pchs": [range(72, 84), range(65, 77)], "onsets": [range(0, 12)] * 2}),
-        Part({"pchs": [range(60, 72), range(67, 79)], "onsets": [range(0, 12)] * 2})
+        Part({"pchs": [range(72, 84), range(65, 77)], "onsets": [range(12)] * 2}),
+        Part({"pchs": [range(60, 72), range(67, 79)], "onsets": [range(12)] * 2})
     ]
 )
 ```
