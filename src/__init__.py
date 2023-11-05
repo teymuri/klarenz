@@ -15,3 +15,4 @@ Copyright (c) 2018, 2023 Amir Teymuri
 
 from .main import proc
 from .classes import Part
+from .helper import *
