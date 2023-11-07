@@ -31,5 +31,7 @@ PAPER = """
 	top-margin = 20
 	bottom-margin = 20
 	indent = 0
+    %% entfernt die Trennline oberhalb der Fußnotentexte am Seitenende
+    footnote-separator-markup = ##f  
 }
 """
