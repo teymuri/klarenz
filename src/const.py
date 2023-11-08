@@ -127,7 +127,7 @@ GLOBAL_METADATA = {
     # "enharmonics": None,
     # "note_type": "midi",
     # string, herz
-    "who": "_kodou",
+    "who": "Klarenz",
     "what": {},
     # sticky metadata
     "timesig": {"default": (4, 4)},
@@ -139,7 +139,8 @@ GLOBAL_METADATA = {
     "barline": {},
     "legato": {},
     # ganz anderes md
-    "staff": {"types": "basic"}
+    "staff": {"types": "basic"},
+    "copyright": []
 }
 
 

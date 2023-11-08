@@ -11,13 +11,13 @@ from .pitch import midi_to_name
 from .rhythm import (superior_x, disassemble_rhythm)
 from .process import (dict_integration_ip, distribute_voice_staff,
                       parse_lilyvals, _glue, _process_beat)
-from .constants import (LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES,
+from .const import (LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES,
                         USER_DEFINE_OPERATOR, STAFF_BINDING_TYPES, STAFF_TYPES)
 # import .pitch as pch
 
 # import .rhythm as rtm
 # import .process as prc
-# import .constants as cnst
+# import .const as cnst
 
 
 
@@ -1613,7 +1613,7 @@ class _PaperPart:
                     try:            # a new timesig encountered
                         # If there would be a timesig it is only an attr
                         # of the first element of the beat
-                        # Default timesig comes from the constants.GLOBAL_METADATA,
+                        # Default timesig comes from the const.GLOBAL_METADATA,
                         # if no timesig set for the first element
                         init_val = beatgroup[first_item].timesig[1]
                     except AttributeError:
@@ -1631,7 +1631,7 @@ class _PaperPart:
                 try:            # a new timesig encountered
                     # If there would be a timesig it is only an attr
                     # of the first element of the beat
-                    # Default timesig comes from the constants.GLOBAL_METADATA,
+                    # Default timesig comes from the const.GLOBAL_METADATA,
                     # if no timesig set for the first element
                     init_val = beatgroup[first_item].timesig[1]
                 except AttributeError:
@@ -1657,7 +1657,7 @@ class _PaperPart:
     #                 try:            # a new timesig encountered
     #                     # If there would be a timesig it is only an attr
     #                     # of the first element of the beat
-    #                     # Default timesig comes from the constants.GLOBAL_METADATA,
+    #                     # Default timesig comes from the const.GLOBAL_METADATA,
     #                     # if no timesig set for the first element
     #                     init_val = beatgroup[first_item].timesig[1]
     #                 except AttributeError:
@@ -1676,7 +1676,7 @@ class _PaperPart:
     #             try:            # a new timesig encountered
     #                 # If there would be a timesig it is only an attr
     #                 # of the first element of the beat
-    #                 # Default timesig comes from the constants.GLOBAL_METADATA,
+    #                 # Default timesig comes from the const.GLOBAL_METADATA,
     #                 # if no timesig set for the first element
     #                 init_val = beatgroup[first_item].timesig[1]
     #             except AttributeError:
