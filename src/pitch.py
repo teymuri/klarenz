@@ -7,13 +7,13 @@ http://www.ekmelic-music.org/en/extra/alter.htm#note-enh
 from fractions import Fraction
 from math import (floor, modf)
 
-
+# german
 UPWARD_CHROMATIC_SCALE = {0: "c", 1: "cis", 2: "d", 3: "dis",
                           4: "e", 5: "f", 6: "fis", 7: "g",
                           8: "gis", 9: "a", 10: "ais", 11: "h"}
 DOWNWARD_CHROMATIC_SCALE = {0: "c", 1: "des", 2: "d", 3: "es",
                             4: "e", 5: "f", 6: "ges", 7: "g",
-                            8: "as", 9: "a", 10: "hes", 11: "h"}
+                            8: "as", 9: "a", 10: "b", 11: "h"}
 UPWARD_MICROTONES = {0: "",
                      Fraction(1/6).limit_denominator(): "ir",
                      Fraction(1/3).limit_denominator(): "il",
