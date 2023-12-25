@@ -1,6 +1,6 @@
 from subprocess import *
 from time import sleep
-from os.path import expanduser
+from os.path import (expanduser, abspath)
 
 from .classes import (Part, _PaperPart)
 from .process import (prepare_ly, dict_integration_ip, dict_integrate)
@@ -8,10 +8,13 @@ from .const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS,
                           PDFVIEW_WAIT, DOTFILE)
 
 
+def get_version():
+    with open(abspath("./version.txt"), "r") as version_file:
+        return version_file.readlines()[0]
 
 def proc(score,
           metadata={},
-          file_name="klarenz-test",
+          file_name="klarenz",
           path="/tmp",
           dotfile=DOTFILE,
           outputs=["pdf"],

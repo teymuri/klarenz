@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
 	name = 'klarenz',
-	version = '0.0.5',
+	# version = '0.0.5',
 	description = 'Programmatically generate Lilypond scores, with ease and elegance of pure Python ',
 	author = 'Amir Teymuri',
 	author_email = 'amiratwork22@gmail.com',

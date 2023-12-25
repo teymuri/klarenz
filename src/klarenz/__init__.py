@@ -14,8 +14,8 @@ Copyright (c) 2018, 2023 Amir Teymuri
 """
 
 
-__version__ = "0.0.5"
 
 from .main import *
 from .classes import Part
 from .helper import *
+from .version import __version__

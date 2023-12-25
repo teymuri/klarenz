@@ -1,13 +1,16 @@
+from src.klarenz.version import __version__
 
+
+toml = f"""
 [build-system]
 requires = [ "setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "klarenz"
-version = "0.0.6"
+version = "{__version__}"
 authors = [
-    { name="Amir Teymuri", email="amiratwork22@gmail.com" }, 
+    {{ name="Amir Teymuri", email="amiratwork22@gmail.com" }}, 
 ]
 description = "Programmatically generate Lilypond scores, with ease and elegance of pure Python"
 readme = "README.md"
@@ -21,3 +24,7 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/teymuri/klarenz.git"
 "Bug Tracker" = "https://github.com/teymuri/klarenz/issues"
+"""
+
+with open("pyproject.toml", "w") as f:
+    f.write(toml)
