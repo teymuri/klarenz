@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "klarenz"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Amir Teymuri", email="amiratwork22@gmail.com" },
 ]
@@ -15,6 +15,9 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent",
+]
+dependencies = [
+  "toml",
 ]
 
 [project.urls]
