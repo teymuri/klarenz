@@ -8,9 +8,6 @@ from .const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS,
                           PDFVIEW_WAIT, DOTFILE)
 
 
-def get_version():
-    with open(abspath("./version.txt"), "r") as version_file:
-        return version_file.readlines()[0]
 
 def proc(score,
           metadata={},
