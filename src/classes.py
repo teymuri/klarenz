@@ -7,17 +7,12 @@ from numbers import Number
 from fractions import Fraction
 from operator import(le, lt, gt)
 from math import (floor, ceil, modf)
-from klarenz.src.pitch import midi_to_name
-from klarenz.src.rhythm import (superior_x, disassemble_rhythm)
-from klarenz.src.process import (dict_integration_ip, distribute_voice_staff,
+from src.pitch import midi_to_name
+from src.rhythm import (superior_x, disassemble_rhythm)
+from src.process import (dict_integration_ip, distribute_voice_staff,
                       parse_lilyvals, _glue, _process_beat)
-from klarenz.src.const import (LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES,
+from src.const import (LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES,
                         USER_DEFINE_OPERATOR, STAFF_BINDING_TYPES, STAFF_TYPES)
-# import .pitch as pch
-
-# import .rhythm as rtm
-# import .process as prc
-# import .const as cnst
 
 
 

@@ -2,9 +2,9 @@ from toml import load as toml_load
 from subprocess import *
 from time import sleep
 from os.path import expanduser
-from klarenz.src.classes import (Part, _PaperPart)
-from klarenz.src.process import (prepare_ly, dict_integration_ip, dict_integrate)
-from klarenz.src.const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
+from src.classes import (Part, _PaperPart)
+from src.process import (prepare_ly, dict_integration_ip, dict_integrate)
+from src.const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
                           PDFVIEW_WAIT, DOTFILE)
 
 

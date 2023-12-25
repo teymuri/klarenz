@@ -13,6 +13,6 @@ for more details.
 Copyright (c) 2018, 2023 Amir Teymuri
 """
 
-from klarenz.src.main import *
-from klarenz.src.classes import Part
-from klarenz.src.helper import *
+from src.main import *
+from src.classes import Part
+from src.helper import *
