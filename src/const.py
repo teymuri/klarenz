@@ -160,4 +160,9 @@ PDFVIEW_WAIT = 4
 
 DOTFILE = "~/.klarenz"
 
-
+# default settings for dotfile parameter
+LY_MIN_VERSION = "2.21.0"
+LY_DEFAULT_LANG = "deutsch"
+LOAD_EKMELILY = "no"
+LY_DEFAULT_STAFF_SZ = "14"
+LY_DEFAULT_PAPER_SZ = "quarto"

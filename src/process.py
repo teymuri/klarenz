@@ -8,8 +8,10 @@ from .rhythm import (_superior_binary, lcm, superior_x, factorize,
 from .ly import (TAGLINE, PAPER, HEADER_TAGLINE,
                  UNEQUAL_LENGTH_MEASURES_POLYMETRY, make_header)
 from .const import (LIMIT, NOTEHEADS, CLEFS,
-                        PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
-                        ARTICULATIONS, GLOBAL_METADATA)
+                    PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
+                    ARTICULATIONS, GLOBAL_METADATA, LY_MIN_VERSION,
+                    LY_DEFAULT_LANG, LY_DEFAULT_STAFF_SZ, LY_DEFAULT_PAPER_SZ,
+                    LOAD_EKMELILY)
 
 
 def group_by(L, pred=lambda x, y: x == y):
@@ -454,15 +456,15 @@ def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
     with open(ly_path, "w") as f:
         f.write("%%% {0} %%%\n".format(TAGLINE))
         f.write("%%% Load modules, setup & configurations %%%\n")
-        paper_size = dot_kodou_commands.get("ly_paper_size", "quarto")
+        paper_size = dot_kodou_commands.get("ly_paper_size", LY_DEFAULT_PAPER_SZ)
         f.write('#(set-default-paper-size "{}")\n'.format(paper_size))
-        staff_size = dot_kodou_commands.get("ly_staff_size", "14")
+        staff_size = dot_kodou_commands.get("ly_staff_size", LY_DEFAULT_STAFF_SZ)
         f.write('#(set-global-staff-size {})\n'.format(staff_size))
-        version = dot_kodou_commands.get("ly_version", '2.21.0')
+        version = dot_kodou_commands.get("ly_version", LY_MIN_VERSION)
         f.write('\\version "{}"\n'.format(version))
-        language = dot_kodou_commands.get("ly_language", 'deutsch')
+        language = dot_kodou_commands.get("ly_language", LY_DEFAULT_LANG)
         f.write('\\language "{}"\n'.format(language))
-        load_ekmelily = dot_kodou_commands.get("load_ekmelily", "yes")
+        load_ekmelily = dot_kodou_commands.get("load_ekmelily", LOAD_EKMELILY)
         if load_ekmelily == "yes":
             f.write('\\include "ekmel.ily"\n')
             # In order to choose a style, ekmelily should be loaded!
