@@ -1,4 +1,4 @@
-from src.klarenz.version import __version__
+from src.klarenz.version import *
 
 
 toml = f"""
@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "klarenz"
-version = "{__version__}"
+version = "{version}"
 authors = [
     {{ name="Amir Teymuri", email="amiratwork22@gmail.com" }}, 
 ]

@@ -18,4 +18,4 @@ Copyright (c) 2018, 2023 Amir Teymuri
 from .main import *
 from .classes import Part
 from .helper import *
-from .version import __version__
+from .version import *
