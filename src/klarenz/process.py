@@ -3,11 +3,12 @@ import src.cfg
 from math import modf
 from copy import copy
 from fractions import Fraction
-from src.rhythm import (_superior_binary, lcm, superior_x, factorize,
+
+from rhythm import (_superior_binary, lcm, superior_x, factorize,
                      nearest_binary, tuplet_label)
-from src.ly import (TAGLINE, PAPER, HEADER_TAGLINE,
+from ly import (TAGLINE, PAPER, HEADER_TAGLINE,
                  UNEQUAL_LENGTH_MEASURES_POLYMETRY, make_header)
-from src.const import (LIMIT, NOTEHEADS, CLEFS,
+from const import (LIMIT, NOTEHEADS, CLEFS,
                     PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
                     ARTICULATIONS, GLOBAL_METADATA, LY_MIN_VERSION,
                     LY_DEFAULT_LANG, LY_DEFAULT_STAFF_SZ, LY_DEFAULT_PAPER_SZ,
