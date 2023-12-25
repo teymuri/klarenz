@@ -13,6 +13,9 @@ for more details.
 Copyright (c) 2018, 2023 Amir Teymuri
 """
 
-from main import *
-from classes import Part
-from helper import *
+
+__version__ = "0.0.5"
+
+from .main import *
+from .classes import Part
+from .helper import *

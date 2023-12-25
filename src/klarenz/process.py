@@ -1,18 +1,18 @@
 
-import src.cfg
+import klarenz.cfg as cfg
 from math import modf
 from copy import copy
 from fractions import Fraction
 
-from rhythm import (_superior_binary, lcm, superior_x, factorize,
-                     nearest_binary, tuplet_label)
-from ly import (TAGLINE, PAPER, HEADER_TAGLINE,
-                 UNEQUAL_LENGTH_MEASURES_POLYMETRY, make_header)
-from const import (LIMIT, NOTEHEADS, CLEFS,
-                    PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
-                    ARTICULATIONS, GLOBAL_METADATA, LY_MIN_VERSION,
-                    LY_DEFAULT_LANG, LY_DEFAULT_STAFF_SZ, LY_DEFAULT_PAPER_SZ,
-                    LOAD_EKMELILY)
+from .rhythm import (_superior_binary, lcm, superior_x, factorize,
+                    nearest_binary, tuplet_label)
+from .ly import (TAGLINE, PAPER, HEADER_TAGLINE,
+                UNEQUAL_LENGTH_MEASURES_POLYMETRY, make_header)
+from .const import (LIMIT, NOTEHEADS, CLEFS,
+                   PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
+                   ARTICULATIONS, GLOBAL_METADATA, LY_MIN_VERSION,
+                   LY_DEFAULT_LANG, LY_DEFAULT_STAFF_SZ, LY_DEFAULT_PAPER_SZ,
+                   LOAD_EKMELILY)
 
 
 def group_by(L, pred=lambda x, y: x == y):
@@ -473,7 +473,7 @@ def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
             f.write('\\ekmelicStyle {}\n'.format(ekmelic_style))
         # what r these?
         f.write("\n")
-        f.write(make_header(src.cfg.copyright))
+        f.write(make_header(cfg.copyright))
         f.write(UNEQUAL_LENGTH_MEASURES_POLYMETRY)
         f.write(PAPER)
         f.write("\n")

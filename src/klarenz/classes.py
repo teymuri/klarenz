@@ -8,11 +8,11 @@ from fractions import Fraction
 from operator import(le, lt, gt)
 from math import (floor, ceil, modf)
 
-from pitch import midi_to_name
-from rhythm import (superior_x, disassemble_rhythm)
-from process import (dict_integration_ip, distribute_voice_staff,
+from .pitch import midi_to_name
+from .rhythm import (superior_x, disassemble_rhythm)
+from .process import (dict_integration_ip, distribute_voice_staff,
                       parse_lilyvals, _glue, _process_beat)
-from const import (LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES,
+from .const import (LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES,
                         USER_DEFINE_OPERATOR, STAFF_BINDING_TYPES, STAFF_TYPES)
 
 

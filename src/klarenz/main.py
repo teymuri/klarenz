@@ -1,17 +1,13 @@
-from toml import load as toml_load
 from subprocess import *
 from time import sleep
 from os.path import expanduser
 
-from classes import (Part, _PaperPart)
-from process import (prepare_ly, dict_integration_ip, dict_integrate)
-from const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
+from .classes import (Part, _PaperPart)
+from .process import (prepare_ly, dict_integration_ip, dict_integrate)
+from .const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
                           PDFVIEW_WAIT, DOTFILE)
 
 
-def get_version():
-    """Returns the currect version."""
-    return toml_load("../pyproject.toml")["project"]["version"]
 
 def proc(score,
           metadata={},
