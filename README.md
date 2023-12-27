@@ -4,4 +4,4 @@ For more information check the [documentation page](https://teymuri.github.io/kl
 
 
 # Packaging
-Ensure to update the `src/klarenz/version.py` file and run `python prebuild.py` before initiating the build-upload process for each release.
+Ensure to update the `src/klarenz/version.py` file and run `python prebuild.py` (and push them!) before initiating the build-upload process for each release.
