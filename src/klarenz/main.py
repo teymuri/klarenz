@@ -25,14 +25,14 @@ def proc(score,
     # check whether solo or ensemble
     if isinstance(score, list) or isinstance(score, tuple):
         solo = False
-        score_template = ["\\score { <<\n", " >>\n}"]
+        score_template = ["\n\\score {\n<<\n", " >>\n}"]
         updated_part_md = []
         for part in score:
             # dict_integration_ip(part.metadata, metadata)
             updated_part_md.append(dict_integrate(part.metadata, updated_md))
     elif isinstance(score, Part):
         solo = True
-        score_template = ["\\score {\n", "\n}"]
+        score_template = ["\n\\score {\n", "\n}"]
         # dict_integration_ip(score.metadata, metadata)
         updated_score_md = dict_integrate(score.metadata, updated_md)
     else:
@@ -64,10 +64,9 @@ def proc(score,
         viewer, lilypond = prepare_ly(ly_path, dotfile, parts_global_ly_commands)
         # write to ly file
         with open(ly_path, "a") as ly:
-            ly.write("%%% Parts %%%" + "\n")
+            ly.write("%%%%%%%%%%%%%\n%%% Parts %%%\n%%%%%%%%%%%%%\n")
             ly.write(staff)
-            # ly.write("\n" * 4)
-            ly.write("\n" * 2 + "%%% Score %%%" + "\n")
+            ly.write("\n\n%%%%%%%%%%%%%\n%%% Score %%%\n%%%%%%%%%%%%%\n")
             ly.write("".join(score_template))
         # compiling + viewing
         compile_flags = set(LP_OUTPUT_FORMATS.keys()).intersection(non_midi_formats)

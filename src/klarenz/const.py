@@ -127,7 +127,9 @@ GLOBAL_METADATA = {
     # "enharmonics": None,
     # "note_type": "midi",
     # string, herz
-    "who": "Klarenz",
+
+    # "who": "Klarenz",
+    "who": "_klarenz",
     "what": {},
     # sticky metadata
     "timesig": {"default": (4, 4)},

@@ -968,7 +968,7 @@ class _Staff:
         # processed_part = self.x_part.process()
         processed_part = self.x_part.render()
         if self.bind:           # could be "": None
-            staff = ['{} = \\new {} \with {{instrumentName = #"{}" shortInstrumentName = #"{}"}}'.format(
+            staff = ['\n{} = \\new {} \with {{instrumentName = #"{}" shortInstrumentName = #"{}"}}'.format(
                 self.x_part.who,
                 self.bind,
                 self.x_part.name,
@@ -1013,7 +1013,7 @@ class _Staff:
         return staff
     
     def _make_monophon_staff(self):
-        staff = ['{} = \\new {} \with {{instrumentName = #"{}" shortInstrumentName = #"{}"}}'.format(
+        staff = ['\n{} = \\new {} \with {{instrumentName = #"{}" shortInstrumentName = #"{}"}}'.format(
             self.x_part.who,
             STAFF_TYPES[self.types],
             self.x_part.name,
@@ -1384,14 +1384,12 @@ class _PaperPart:
         # self.staff.deploy will be called be kodou()
         self.staff = _Staff(metadata["staff"], self)
 
-        
     def apply_who(self, who):
         """id"""
-        if who == "_kodou":       # no id declared
-            self.who = "kodou" + "".join(next(_PaperPart.IDS))
+        if who == "_klarenz":       # no id declared
+            self.who = "KLARENZ" + "".join(next(_PaperPart.IDS))
         else:
             self.who = who
-
             
     def apply_what(self, what):
         self.name = what.get("name", "")
