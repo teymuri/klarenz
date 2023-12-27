@@ -1,5 +1,4 @@
 
-import klarenz.cfg as cfg
 from math import modf
 from copy import copy
 from fractions import Fraction
@@ -13,6 +12,7 @@ from .const import (LIMIT, NOTEHEADS, CLEFS,
                    ARTICULATIONS, GLOBAL_METADATA, LY_MIN_VERSION,
                    LY_DEFAULT_LANG, LY_DEFAULT_STAFF_SZ, LY_DEFAULT_PAPER_SZ,
                    LOAD_EKMELILY)
+from .cfg import _copyright
 
 
 def group_by(L, pred=lambda x, y: x == y):
@@ -473,7 +473,7 @@ def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
             f.write('\\ekmelicStyle {}\n'.format(ekmelic_style))
         # what r these?
         f.write("\n")
-        f.write(make_header(cfg.copyright))
+        f.write(make_header(_copyright))
         f.write(UNEQUAL_LENGTH_MEASURES_POLYMETRY)
         f.write(PAPER)
         f.write("\n")
