@@ -325,10 +325,10 @@ class _Duration:
                         if beat not in stream[voice].keys():
                             raise KeyError("Duration beat {} of duration voice {} not found!".format(beat, voice))
         else:
-            # check if all beats are present
+            # check if all onsets are present
             for beat in sorted(durations):
                 if beat not in stream.keys():
-                    raise KeyError("Duration beat {} not found!".format(beat))
+                    raise KeyError(f"Duration-key {beat} (an onset) not found in the onset-list")
 
                 
     def _durations(self, durations, stream):
