@@ -2,6 +2,7 @@ from subprocess import *
 from time import sleep
 from os.path import (expanduser, abspath)
 
+from .version import *
 from .classes import (Part, _PaperPart)
 from .process import (prepare_ly, dict_integration_ip, dict_integrate)
 from .const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
@@ -73,6 +74,7 @@ def proc(score,
         compile_flags = set(LP_OUTPUT_FORMATS.keys()).intersection(non_midi_formats)
         compile_flags = " ".join([LP_OUTPUT_FORMATS[flag] for flag in compile_flags])
         lilypond_popenargs = [lilypond, "-o", "/".join((path_, file_name)), compile_flags, ly_path]
+        print(f"Klarenz {version}")
         Popen(lilypond_popenargs)
         if view:
             pdf_name = ".".join((file_name, "pdf"))
