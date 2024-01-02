@@ -10,15 +10,29 @@ USER_DEFINE_OPERATOR = "=>"
 
 
 
-# md will be processed in _make_obj in this order
+# md will be processed in _make_obj in this ORDER!
 # _ is the placeholder for the _Note obj
 # ORDERED_METADATA = ("float_barline", "clef", "timesig",
 #                     "notehead", "slur_type", "_",
 #                     "slur", "articulation", "dynamic",
 #                     "int_barline")
-PRE_TUPLET_METADATA = ("clef", "timesig")
-POST_TUPLET_METADATA = ("float_barline", "notehead", "slur_type", "_",
-                        "slur", "articulation", "dynamic", "int_barline")
+PRE_TUPLET_METADATA = (
+    "clef",
+    "timesig"
+)
+POST_TUPLET_METADATA = (
+    "float_barline",
+    "notehead",
+    "slur_type", 
+    "tie_type",
+    "_", # the _Note object
+    "tie",
+    "slur",
+    "articulation", 
+    "dynamic", 
+    "int_barline",
+)
+POST_TUPLET_MD_NOTE_IDX = POST_TUPLET_METADATA.index("_")
 
 
 
@@ -56,6 +70,20 @@ SLUR_TYPES = {
     "halfdashed" : "\slurHalfDashed",
     "dotted" : "\slurDotted",
 }
+
+# https://lilypond.org/doc/v2.25/Documentation/notation/ties
+TIE_TYPES = {
+    "up": "\\tieUp",
+    "down": "\\tieDown",
+    "neutral": "\\tieNeutral",
+    "dotted": "\\tieDotted",
+    "dashed": "\\tieDashed",
+    # tieDashPattern ???
+    "halfdashed": "\\tieHalfDashed",
+    "halfsolid": "\\tieHalfSolid",
+    "solid": "\\tieSolid",
+}
+
 # DYNAMICS = {
 #     "ppppp" : "\ppppp",
 #     "pppp" : "\pppp",
@@ -112,6 +140,7 @@ ARTICULATIONS = {articulation: _make_articulation(articulation) for articulation
     "snappizzicato", "stopped", "segno", "coda", "varcoda",
     "accentus", "circulus", "ictus", "semicirculus", "signumcongruentiae"
 )}
+
 _make_abbreviated_articulation = lambda articulation: "-{}".format(articulation)
 ARTICULATIONS.update({articulation: _make_abbreviated_articulation(articulation) for articulation in (
     ">", "^", "_",
@@ -142,7 +171,8 @@ GLOBAL_METADATA = {
     "legato": {},
     # ganz anderes md
     "staff": {"types": "basic"},
-    "copyright": []
+    "copyright": [],
+    "tie": {}
 }
 
 

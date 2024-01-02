@@ -12,8 +12,11 @@ from .pitch import midi_to_name
 from .rhythm import (superior_x, disassemble_rhythm)
 from .process import (dict_integration_ip, distribute_voice_staff,
                       parse_lilyvals, _glue, _process_beat)
-from .const import (LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES,
-                        USER_DEFINE_OPERATOR, STAFF_BINDING_TYPES, STAFF_TYPES)
+from .const import (
+    LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES, TIE_TYPES,
+    USER_DEFINE_OPERATOR, STAFF_BINDING_TYPES, STAFF_TYPES,
+    POST_TUPLET_MD_NOTE_IDX
+)
 
 
 
@@ -478,6 +481,124 @@ class PostponedMD():
 
 
 # unsticky metadata
+class Tie(_UnstickyMetadata):
+    """Simultaneous or overlapping slurs are not permitted, 
+    but a phrasing slur can overlap a slur.
+    Slurs can be solid, dotted, or dashed, half-dashed, half-solid
+    Solid is the default slur style"""    
+    def __init__(self, md_dict, x_part):
+        super().__init__(md_dict, x_part, "Tie", (str,), (tuple, list, set))
+        self.assertions()
+
+    def _space_legatotype(self, md_dict):
+        D = {}
+        for legatotype in md_dict.keys():
+            for space in md_dict[legatotype]:
+                D.update({space : legatotype})
+        return D
+
+    def arrange_spaces(self, tie_md_dict):
+        space_dict = dict()
+        for tie_type in tie_md_dict.keys():
+            for space in tie_md_dict[tie_type]:
+                space_dict.update({space: tie_type})
+        return space_dict
+    
+    # def _arrange_spaces(self, md_dict):
+    #     D = {}
+    #     space_legatotype = self._space_legatotype(md_dict)
+    #     sorted_space_legatotype = sorted(space_legatotype)
+    #     while sorted_space_legatotype:
+    #         phrasing_slur = max(sorted_space_legatotype,
+    #                             key=lambda tpl: tpl[1] - tpl[0])  # biggest interval
+    #         # remove phrasing_slur and possible duplicates
+    #         for space in list(filter(lambda space: space == phrasing_slur,
+    #                                  sorted_space_legatotype)):
+    #             sorted_space_legatotype.remove(space)
+    #         # gather all included spaces
+    #         L = list(
+    #             filter(
+    #                 lambda space:
+    #                 phrasing_slur[0] < space[0] < phrasing_slur[1] or \
+    #                 phrasing_slur[0] < space[1] < phrasing_slur[1],
+    #                 sorted_space_legatotype
+    #             )
+    #         )
+    #         if L:
+    #             for space in L:
+    #                 sorted_space_legatotype.remove(space)
+    #             R = [L[0]]
+    #             i = 0
+    #             for space in L[1:]:
+    #                 prev_space = L[i]
+    #                 if not space[0] < prev_space[1]:
+    #                     R.append(space)
+    #                     i += 1
+    #         else:
+    #             R = ()
+    #         D[(phrasing_slur, space_legatotype[phrasing_slur])] = [(r, space_legatotype[r]) for r in R]
+    #     return D
+
+    # def _end_point(self, beat, stream):
+    #     """i want end_point of a legato to be the note before the beat"""
+    #     smaller_beats = filter(lambda x: x < beat, stream)
+    #     return list(smaller_beats)[-1]
+    
+    def update_tie_attrs(self, stream: dict, tie_space, tie_type):
+        """Updates the tie and tie_type attributes of objects in the stream.
+        NOTE: New stream objcts are NOT created for non-existent space points!
+        This is currently in contrast with other metadata types."""
+        # space is a 2-tuple and concerns the time: (where to start, when to end)
+        # space, tie_type = tie_space
+        fract_beats = [Fraction(bt).limit_denominator() for bt in tie_space]
+        # # Both beats of the space are created in the stream, if they don't exist yet
+        # obj_on = stream.setdefault(fract_beats[0], _Note(beat=fract_beats[0], _metadata_artefact=True))
+        # obj_off = stream.setdefault(fract_beats[1], _Note(beat=fract_beats[1], _metadata_artefact=True))
+        # Get indices of the stream objects for start/end beats
+        start_idx = sorted(stream).index(fract_beats[0])
+        end_idx = sorted(stream).index(fract_beats[1])
+        for idx in range(start_idx, end_idx):
+            obj = stream[sorted(stream)[idx]]
+            try: # Adding to tie_type attr
+                obj.tie_type.add(TIE_TYPES[tie_type])
+            except AttributeError: # Create the attr
+                setattr(obj, "tie_type", {TIE_TYPES[tie_type]})
+            try: # Update tie attr
+                obj.tie.add("tie_on")
+            except AttributeError:
+                setattr(obj, "tie", {"tie_on"})
+        # Update attrs for the ending object
+        end_obj = stream[sorted(stream)[end_idx]]
+        try:
+            end_obj.tie.add("tie_off")
+        except AttributeError:
+            setattr(end_obj, "tie",{"tie_off"})
+    
+    def apply(self):
+        if self.voice_dependent_metadata:
+            raise NotImplementedError("Write tie for voice dependent md, classes.py, Tie, apply method")
+            for voice in self.md_dict.keys():
+                stream = self.x_part.events.stream[voice]
+                legatos = self._arrange_spaces(self.md_dict[voice])
+                for phrasing_slur in legatos.keys():
+                    self.update_tie_attrs(stream, phrasing_slur, "phrasing")
+                    for space_legato in legatos[phrasing_slur]:
+                        self.update_tie_attrs(stream, space_legato, "normal")
+        else:
+            ties = self.arrange_spaces(self.md_dict)
+            if self.x_part.polyphon:
+                for voice in self.x_part.events.stream.keys():
+                    stream = self.x_part.events.stream[voice]
+                    for tie_space, tie_type in ties.items():
+                        self.update_tie_attrs(stream, tie_space, tie_type)
+            else:
+                stream = self.x_part.events.stream # Is stream already sorted??
+                for tie_space, tie_type in ties.items():
+                    self.update_tie_attrs(stream, tie_space, tie_type)
+
+
+# unsticky metadata
+# RENAME TO SLUR
 class _Legato(_UnstickyMetadata):
     """Simultaneous or overlapping slurs are not permitted, 
     but a phrasing slur can overlap a slur.
@@ -1189,7 +1310,7 @@ class _PaperPart:
                         # but unset properties for not being glued for a second time.
                         processed_beats[beat]["tuplet_end"] = None
                         processed_beats[beat]["tuplet_start"] = None
-                        processed_beats[beat]["obj"] = [{}, {3: ""}]
+                        processed_beats[beat]["obj"] = [{}, {POST_TUPLET_MD_NOTE_IDX: ""}]
                         protected_beats.append(beat)
                         if "barcheck" in beat_dict:
                             carrier_beat = "empty"
@@ -1246,10 +1367,10 @@ class _PaperPart:
                     for ts_ in ts:
                         carrier_beat_tied.append(ts_)
 
-                # 3. post_tuplet_metadata in order
+                # POST_TUPLET_MD_NOTE_IDX. post_tuplet_metadata in order
                 tmp_note = ""
                 for md_key in sorted(pstmd):
-                    if md_key != 3:
+                    if md_key != POST_TUPLET_MD_NOTE_IDX:
                         tmp_note += pstmd[md_key]
                     else:
                         # lilyvals[0] is the head of a carrier_beat
@@ -1299,7 +1420,7 @@ class _PaperPart:
                 
                 duration_tied.append(" ".join(carrier_beat_tied))
 
-            processed_beats[dur_beat]["obj"][1][3] = " ".join(duration_tied)
+            processed_beats[dur_beat]["obj"][1][POST_TUPLET_MD_NOTE_IDX] = " ".join(duration_tied)
     
     
     def render(self):
@@ -1361,9 +1482,10 @@ class _PaperPart:
         
     def apply_metadata(self, metadata):
         """will be called by kodou.kodou()
-        metadata is guaranteed to have these keys by now,
-        all of following methodes change the self.events.stream in-place
-        or set new attrs"""
+        metadata is guaranteed to have these keys by now.
+        All of the following apply methodes change the self.events.stream in-place 
+        or set new attrs for the objects."""
+        tie_md = metadata["tie"]
         self.apply_who(metadata["who"])
         self.apply_what(metadata["what"])
         # sticky
@@ -1381,6 +1503,8 @@ class _PaperPart:
         dynamic.apply_()
         self.global_ly_commands.extend(dynamic.user_definitions)
         _Legato(metadata["legato"], self).apply_()
+        if tie_md:
+            Tie(tie_md, self).apply()
         # self.staff.deploy will be called be kodou()
         self.staff = _Staff(metadata["staff"], self)
 
@@ -1419,7 +1543,6 @@ class _PaperPart:
                 FB = Fraction(beat).limit_denominator()
                 missing_beats[FB] = _Note(beat=FB, from_miss=True)
             self.events.stream.update(missing_beats)
-
             
     def make_beat_groups(self, ):
         """returns a list of grouped beats as dicts"""
@@ -1449,17 +1572,14 @@ class _PaperPart:
                     group = {bt: self.events.stream[bt] for bt in group}
                     L.append(group)
         return L
-
     
     def pstmd_contains_rest(self, pstmd):
         """post_tuplet_metadata contains a rest?"""
-        return pstmd[3].startswith("Or")
-
+        return pstmd[POST_TUPLET_MD_NOTE_IDX].startswith("Or")
 
     def pstmd_contains_note(self, pstmd):
         """post_tuplet_metadata contains a note?"""
         return not self.pstmd_contains_rest(pstmd)
-        
 
     def pstmd_cleanup_chunks(self, processed_beats, identity_test_func):
         """group chunks of ascending notes/rests based on the identity_test_func"""
@@ -1554,7 +1674,7 @@ class _PaperPart:
                 if "barcheck" in beat_dict or \
                    beat_dict["tuplet_end"]:
                     # Then keep the beat_dict since i need those keys
-                    pstmd[3] = ""
+                    pstmd[POST_TUPLET_MD_NOTE_IDX] = ""
                     # for i in range(len(pstmd)):
                     #     if pstmd[i].startswith("Or"):
                     #         pstmd[i] = ""
@@ -1565,7 +1685,7 @@ class _PaperPart:
             carrier_beat_pstmd = carrier_beat_dict["obj"][1]
             # carrier_beat_onbeat = carrier_beat_dict["onbeat"]
             for i in range(len(carrier_beat_pstmd)):
-                if carrier_beat_pstmd[3].startswith("Or"):
+                if carrier_beat_pstmd[POST_TUPLET_MD_NOTE_IDX].startswith("Or"):
                 # if carrier_beat_pstmd[i].startswith("Or"):
                     # Rhythm
                     rhythm_items, full_measure_rest = disassemble_rhythm(n_beat_units,
@@ -1573,14 +1693,14 @@ class _PaperPart:
                                                                              # onbeat=carrier_beat_onbeat,
                                                                              timesig=carrier_timesig)
                     if full_measure_rest:
-                        carrier_beat_pstmd[3] = full_measure_rest
+                        carrier_beat_pstmd[POST_TUPLET_MD_NOTE_IDX] = full_measure_rest
                         # carrier_beat_pstmd[i] = full_measure_rest
                     else:
                         summed_rest = []
                         for n, lily_val in rhythm_items:
                             for _ in range(n):
                                 summed_rest.append("r" + str(lily_val))
-                        carrier_beat_pstmd[3] = " ".join(summed_rest)
+                        carrier_beat_pstmd[POST_TUPLET_MD_NOTE_IDX] = " ".join(summed_rest)
                         # carrier_beat_pstmd[i] = " ".join(summed_rest)
                     break
 
@@ -1590,9 +1710,9 @@ class _PaperPart:
             for beat in chunk:                
                 note_dict = processed_beats[beat]
                 note_dict_pstmd = note_dict["obj"][1]
-                if note_dict_pstmd[3].startswith("O"):
+                if note_dict_pstmd[POST_TUPLET_MD_NOTE_IDX].startswith("O"):
                     # if note_dict_pstmd[i].startswith("O"):
-                    processed_beats[beat]["obj"][1][3] = note_dict_pstmd[3].replace("O", "")
+                    processed_beats[beat]["obj"][1][POST_TUPLET_MD_NOTE_IDX] = note_dict_pstmd[POST_TUPLET_MD_NOTE_IDX].replace("O", "")
 
 
             

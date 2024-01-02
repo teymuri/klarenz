@@ -5,7 +5,7 @@ from os.path import (expanduser, abspath)
 from .classes import (Part, _PaperPart)
 from .process import (prepare_ly, dict_integration_ip, dict_integrate)
 from .const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
-                          PDFVIEW_WAIT, DOTFILE)
+                    PDFVIEW_WAIT, DOTFILE)
 
 
 
@@ -44,6 +44,7 @@ def proc(score,
     non_midi_formats = set(outputs).difference(("midi", "mid"))
     if non_midi_formats: # write ly data
         if solo: # score is a Part object
+            # breakpoint()
             paper_part = _PaperPart(score.events, updated_score_md)
             # paper_part = _PaperPart(score)
             # part want add something at top of the ly file

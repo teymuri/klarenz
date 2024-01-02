@@ -173,6 +173,14 @@ def _process_slur(slur):
             S.append(")")
     return "".join(S)
 
+# rename in lilypondify_tie_type_set
+def process_tie_type(slur_type):
+    """slur_type is a set"""
+    return "{} ".format("".join(slur_type))
+
+def process_tie(tie_set):
+    return "".join(["~" if t == "tie_on" else "" for t in tie_set])
+
     
 def _md_processor(md, md_val):
     """verarbeiten des metadatas"""
@@ -194,6 +202,10 @@ def _md_processor(md, md_val):
         return _process_articulation(md_val)
     elif md == "dynamic":
         return _process_dynamic(md_val)
+    elif md == "tie_type":
+        return process_tie_type(md_val)
+    elif md == "tie":
+        return process_tie(md_val)
 
 
 def _make_obj(note_obj, lily_val):
