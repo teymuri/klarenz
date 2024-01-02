@@ -35,7 +35,7 @@ with open("pyproject.toml", "w") as f:
 readme = f"""
 [__Klarenz__](https://en.wikipedia.org/wiki/Clarence_Barlow) is a highly minimalist (the entire API consists of a single class `Part` and a main processor function `proc`!) and Pythonic package for compiling Lilypond sheet music.
 
-For more information check the [documentation page](https://teymuri.github.io/klarenz-docs/).
+For more information and examples please check the [Documentation](https://teymuri.github.io/klarenz-docs/).
 
 # Current release: v{version}
 
