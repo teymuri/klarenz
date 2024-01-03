@@ -94,8 +94,8 @@ class _Space:
 class _Events:
     """dict with keys: beats, pchs, opt:durations"""
     def __init__(self, events):
-        beats = events["onsets"]
-        notes = events["pchs"]
+        beats = events["beats"]
+        notes = events["notes"]
         # create the stream
         self.stream = dict()
         # notes have been specified at creation time
@@ -150,9 +150,9 @@ class _Events:
         self.stream = self.convert(self.stream)        
         # durations is an optional parameter: a dict {beat: duration}
         # this only runs the assertions and does nothing more.
-        # If events.get("durations") is None, fractionized is an
+        # If events.get("durs") is None, fractionized is an
         # empty dict and assertions iterats over an empty dict.
-        durations = events.get("durations")
+        durations = events.get("durs")
         if durations:
             self.with_duration = True
             self.duration_obj = _Duration(durations, self.stream)
