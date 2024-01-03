@@ -32,7 +32,7 @@ POST_TUPLET_METADATA = (
     "dynamic", 
     "int_barline",
 )
-POST_TUPLET_MD_NOTE_IDX = POST_TUPLET_METADATA.index("_")
+POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX = POST_TUPLET_METADATA.index("_")
 
 
 
