@@ -15,7 +15,7 @@ from .process import (dict_integration_ip, distribute_voice_staff,
 from .const import (
     LIMIT, PHRASING_SLUR_TYPES, SLUR_TYPES, TIE_TYPES,
     USER_DEFINE_OPERATOR, STAFF_BINDING_TYPES, STAFF_TYPES,
-    POST_TUPLET_MD_NOTE_IDX
+    POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX
 )
 
 
@@ -1310,7 +1310,7 @@ class _PaperPart:
                         # but unset properties for not being glued for a second time.
                         processed_beats[beat]["tuplet_end"] = None
                         processed_beats[beat]["tuplet_start"] = None
-                        processed_beats[beat]["obj"] = [{}, {POST_TUPLET_MD_NOTE_IDX: ""}]
+                        processed_beats[beat]["obj"] = [{}, {POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX: ""}]
                         protected_beats.append(beat)
                         if "barcheck" in beat_dict:
                             carrier_beat = "empty"
@@ -1367,10 +1367,10 @@ class _PaperPart:
                     for ts_ in ts:
                         carrier_beat_tied.append(ts_)
 
-                # POST_TUPLET_MD_NOTE_IDX. post_tuplet_metadata in order
+                # POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX. post_tuplet_metadata in order
                 tmp_note = ""
                 for md_key in sorted(pstmd):
-                    if md_key != POST_TUPLET_MD_NOTE_IDX:
+                    if md_key != POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX:
                         tmp_note += pstmd[md_key]
                     else:
                         # lilyvals[0] is the head of a carrier_beat
@@ -1420,7 +1420,7 @@ class _PaperPart:
                 
                 duration_tied.append(" ".join(carrier_beat_tied))
 
-            processed_beats[dur_beat]["obj"][1][POST_TUPLET_MD_NOTE_IDX] = " ".join(duration_tied)
+            processed_beats[dur_beat]["obj"][1][POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX] = " ".join(duration_tied)
     
     
     def render(self):
@@ -1575,7 +1575,7 @@ class _PaperPart:
     
     def pstmd_contains_rest(self, pstmd):
         """post_tuplet_metadata contains a rest?"""
-        return pstmd[POST_TUPLET_MD_NOTE_IDX].startswith("Or")
+        return pstmd[POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX].startswith("Or")
 
     def pstmd_contains_note(self, pstmd):
         """post_tuplet_metadata contains a note?"""
@@ -1674,7 +1674,7 @@ class _PaperPart:
                 if "barcheck" in beat_dict or \
                    beat_dict["tuplet_end"]:
                     # Then keep the beat_dict since i need those keys
-                    pstmd[POST_TUPLET_MD_NOTE_IDX] = ""
+                    pstmd[POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX] = ""
                     # for i in range(len(pstmd)):
                     #     if pstmd[i].startswith("Or"):
                     #         pstmd[i] = ""
@@ -1685,7 +1685,7 @@ class _PaperPart:
             carrier_beat_pstmd = carrier_beat_dict["obj"][1]
             # carrier_beat_onbeat = carrier_beat_dict["onbeat"]
             for i in range(len(carrier_beat_pstmd)):
-                if carrier_beat_pstmd[POST_TUPLET_MD_NOTE_IDX].startswith("Or"):
+                if carrier_beat_pstmd[POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX].startswith("Or"):
                 # if carrier_beat_pstmd[i].startswith("Or"):
                     # Rhythm
                     rhythm_items, full_measure_rest = disassemble_rhythm(n_beat_units,
@@ -1693,14 +1693,14 @@ class _PaperPart:
                                                                              # onbeat=carrier_beat_onbeat,
                                                                              timesig=carrier_timesig)
                     if full_measure_rest:
-                        carrier_beat_pstmd[POST_TUPLET_MD_NOTE_IDX] = full_measure_rest
+                        carrier_beat_pstmd[POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX] = full_measure_rest
                         # carrier_beat_pstmd[i] = full_measure_rest
                     else:
                         summed_rest = []
                         for n, lily_val in rhythm_items:
                             for _ in range(n):
                                 summed_rest.append("r" + str(lily_val))
-                        carrier_beat_pstmd[POST_TUPLET_MD_NOTE_IDX] = " ".join(summed_rest)
+                        carrier_beat_pstmd[POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX] = " ".join(summed_rest)
                         # carrier_beat_pstmd[i] = " ".join(summed_rest)
                     break
 
@@ -1710,9 +1710,9 @@ class _PaperPart:
             for beat in chunk:                
                 note_dict = processed_beats[beat]
                 note_dict_pstmd = note_dict["obj"][1]
-                if note_dict_pstmd[POST_TUPLET_MD_NOTE_IDX].startswith("O"):
+                if note_dict_pstmd[POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX].startswith("O"):
                     # if note_dict_pstmd[i].startswith("O"):
-                    processed_beats[beat]["obj"][1][POST_TUPLET_MD_NOTE_IDX] = note_dict_pstmd[POST_TUPLET_MD_NOTE_IDX].replace("O", "")
+                    processed_beats[beat]["obj"][1][POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX] = note_dict_pstmd[POST_TUPLET_MD_NOTE_PLACEHOLDER_IDX].replace("O", "")
 
 
             
