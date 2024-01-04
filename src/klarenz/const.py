@@ -191,6 +191,12 @@ PDFVIEW_WAIT = 4
 
 
 DOTFILE = "~/.klarenz"
+VALID_DOTFILE_KEYS = (
+    "ly_version", "ly_language", "pdf_viewer",
+    "ly_bin", "ly_paper_size", "ly_staff_size",
+    "load_ekmelily"
+)
+DOTFILE_CMD_IDENTIFIER = "$"
 
 # default settings for dotfile parameter
 LY_MIN_VERSION = "2.21.0"

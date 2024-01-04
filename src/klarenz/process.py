@@ -1,17 +1,22 @@
 
+import subprocess
+import shlex
+import shutil
 from math import modf
 from copy import copy
 from fractions import Fraction
 
 from .rhythm import (_superior_binary, lcm, superior_x, factorize,
-                    nearest_binary, tuplet_label)
+                     nearest_binary, tuplet_label)
 from .ly import (TAGLINE, PAPER, HEADER_TAGLINE,
-                UNEQUAL_LENGTH_MEASURES_POLYMETRY, make_header)
+                 UNEQUAL_LENGTH_MEASURES_POLYMETRY, make_header)
 from .const import (LIMIT, NOTEHEADS, CLEFS,
-                   PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
-                   ARTICULATIONS, GLOBAL_METADATA, LY_MIN_VERSION,
-                   LY_DEFAULT_LANG, LY_DEFAULT_STAFF_SZ, LY_DEFAULT_PAPER_SZ,
-                   LOAD_EKMELILY)
+                    PRE_TUPLET_METADATA, POST_TUPLET_METADATA,
+                    ARTICULATIONS, GLOBAL_METADATA, LY_MIN_VERSION,
+                    LY_DEFAULT_LANG, LY_DEFAULT_STAFF_SZ, LY_DEFAULT_PAPER_SZ,
+                    LOAD_EKMELILY,
+                    VALID_DOTFILE_KEYS, DOTFILE_CMD_IDENTIFIER
+                   )
 from .cfg import _copyright
 
 
@@ -445,27 +450,30 @@ def _glue(final_beat_item):
 #     return tokens
 
 
-VALID_KODOURC_KEYS = (
-    "ly_version", "ly_language", "pdf_viewer",
-    "ly_bin", "ly_paper_size", "ly_staff_size",
-    "load_ekmelily"
-)
 
 def is_valid_kodourc_key(key):
-    return key.lower() in VALID_KODOURC_KEYS
+    return key.lower() in VALID_DOTFILE_KEYS
 
 def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
     """paperpart_global_ly_commands is a list of commands different Part()s want 
     to add at the top of the ly file before writing their stave"""
     dot_kodou_commands = dict()
     with open(kodourc, "r") as f:
+        # Note that there must be 1 command per line
         for line in f.read().splitlines():
-            if line and not line.startswith("#"):  # pound sign is .kodou comment
+            if line and not line.startswith("#"):  # pound sign is .klarenz comment
                 k, v = [x.strip() for x in line.split("=")]
                 if is_valid_kodourc_key(k):
+                    # Check if we need to call a command
+                    # to get the value
+                    if v.startswith(DOTFILE_CMD_IDENTIFIER):
+                        v = v[1:] # Chuck out the command identifier
+                        cmd, *cmd_args = v.split(" ")
+                        v = subprocess.run(shlex.split(" ".join([shutil.which(cmd)] + cmd_args)), text=True, check=True,
+                                           capture_output=True).stdout.rstrip()
                     dot_kodou_commands[k] = v
                 else:
-                    raise NameError(f"{k} is not a valid kodourc key")
+                    raise NameError(f"{k} is not a valid dotfile key")
     with open(ly_path, "w") as f:
         f.write("%%% {0} %%%\n".format(TAGLINE))
         f.write("%%% Load modules, setup & configurations %%%\n")
