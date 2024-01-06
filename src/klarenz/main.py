@@ -11,12 +11,12 @@ from .const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS,
 
 
 def proc(score,
-          metadata={},
-          file_name="klarenz",
-          path="/tmp",
-          dotfile=DOTFILE,
-          outputs=["pdf"],
-          view=True):
+         metadata={},
+         file_name="klarenz",
+         path="/tmp",
+         dotfile=DOTFILE,
+         outputs=["pdf"],
+         viewpdf=True):
     """the main processing function"""
     dotfile = expanduser(dotfile)
     path_ = expanduser(path)
@@ -70,15 +70,21 @@ def proc(score,
             ly.write(staff)
             ly.write("\n\n%%%%%%%%%%%%%\n%%% Score %%%\n%%%%%%%%%%%%%\n")
             ly.write("".join(score_template))
-        # compiling + viewing
-        compile_flags = set(LP_OUTPUT_FORMATS.keys()).intersection(non_midi_formats)
-        compile_flags = " ".join([LP_OUTPUT_FORMATS[flag] for flag in compile_flags])
-        lilypond_popenargs = [lilypond, "-o", "/".join((path_, file_name)), compile_flags, ly_path]
-        print(f"%%% Klarenz {version} %%%")
-        Popen(lilypond_popenargs)
-        if view:
-            pdf_name = ".".join((file_name, "pdf"))
-            pdf_path = "/".join((path_, pdf_name))
-            viewer_popenargs = [viewer, pdf_path]
-            sleep(PDFVIEW_WAIT)
-            Popen(viewer_popenargs)
+        # Compiling only if we need corresponding formats
+        if "pdf" in outputs: # or svg or png or jpg ....
+            compile_flags = set(LP_OUTPUT_FORMATS.keys()).intersection(non_midi_formats)
+            compile_flags = " ".join([LP_OUTPUT_FORMATS[flag] for flag in compile_flags])
+            lilypond_popenargs = [lilypond, "-o", "/".join((path_, file_name)), compile_flags, ly_path]
+            print(f"%%% Klarenz {version} %%%")
+            Popen(lilypond_popenargs)
+            # Viewing the pdf
+            if viewpdf:
+                pdf_name = ".".join((file_name, "pdf"))
+                pdf_path = "/".join((path_, pdf_name))
+                viewer_popenargs = [viewer, pdf_path]
+                sleep(PDFVIEW_WAIT)
+                Popen(viewer_popenargs)
+        # Check if str-return needed (mainly for testing purposes)
+        if "str" in outputs:
+            with open(ly_path, "r") as file:
+                return file.read()

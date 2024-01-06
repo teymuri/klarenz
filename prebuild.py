@@ -21,6 +21,9 @@ classifiers = [
     "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    'pytest',
+]
 
 [project.urls]
 "Homepage" = "https://github.com/teymuri/klarenz.git"
