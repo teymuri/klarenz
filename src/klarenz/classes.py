@@ -1205,7 +1205,7 @@ class _NoteHead(_StickyMetadata):
 
                 
 class _PaperPart:
-    """instances generate LilyPond data"""
+    """Instances generate LilyPond data"""
     IDS = product(ascii_uppercase, repeat=5)  # 26**5 distinct ids
 
     def __init__(self, part_events, part_metadata):

@@ -198,9 +198,11 @@ VALID_DOTFILE_KEYS = (
 )
 DOTFILE_CMD_IDENTIFIER = "$"
 
-# default settings for dotfile parameter
+# Default settings for the dotfile
 LY_MIN_VERSION = "2.21.0"
 LY_DEFAULT_LANG = "deutsch"
 LOAD_EKMELILY = "no"
 LY_DEFAULT_STAFF_SZ = "14"
 LY_DEFAULT_PAPER_SZ = "quarto"
+PDF_VIEWER = "/usr/bin/qpdfview"
+LY_BIN = "/usr/local/bin/lilypond"
