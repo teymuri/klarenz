@@ -454,11 +454,9 @@ def _glue(final_beat_item):
 def is_valid_kodourc_key(key):
     return key.lower() in VALID_DOTFILE_KEYS
 
-def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
-    """paperpart_global_ly_commands is a list of commands different Part()s want 
-    to add at the top of the ly file before writing their stave"""
-    dot_kodou_commands = dict()
-    with open(kodourc, "r") as f:
+def get_dotfile_commands(dotfile_path) -> dict:
+    cmds = dict()
+    with open(dotfile_path, "r") as f:
         # Note that there must be 1 command per line
         for line in f.read().splitlines():
             if line and not line.startswith("#"):  # pound sign is .klarenz comment
@@ -471,25 +469,38 @@ def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
                         cmd, *cmd_args = v.split(" ")
                         v = subprocess.run(shlex.split(" ".join([shutil.which(cmd)] + cmd_args)), text=True, check=True,
                                            capture_output=True).stdout.rstrip()
-                    dot_kodou_commands[k] = v
+                    cmds[k] = v
                 else:
                     raise NameError(f"{k} is not a valid dotfile key")
+    return cmds
+
+def prepare_ly_ip(ly_path, kodourc, paperpart_global_ly_commands):
+    """paperpart_global_ly_commands is a list of commands different Part()s want 
+    to add at the top of the ly file before writing their stave.
+    Excludes specified items from appearing in th final ly file.
+    Exclude items can be: 
+    """
+    # Dont call get_... here, give it the dict
+    dotfile_commands_dict = get_dotfile_commands(kodourc)
     with open(ly_path, "w") as f:
-        f.write("%%% {0} %%%\n".format(TAGLINE))
+        tagline_str = f"%%% {TAGLINE} %%%"
+        f.write("%" * len(tagline_str) + "\n")
+        f.write(tagline_str + "\n")
+        f.write("%" * len(tagline_str) + "\n\n")
         f.write("%%% Load modules, setup & configurations %%%\n")
-        paper_size = dot_kodou_commands.get("ly_paper_size", LY_DEFAULT_PAPER_SZ)
+        paper_size = dotfile_commands_dict.get("ly_paper_size", LY_DEFAULT_PAPER_SZ)
         f.write('#(set-default-paper-size "{}")\n'.format(paper_size))
-        staff_size = dot_kodou_commands.get("ly_staff_size", LY_DEFAULT_STAFF_SZ)
+        staff_size = dotfile_commands_dict.get("ly_staff_size", LY_DEFAULT_STAFF_SZ)
         f.write('#(set-global-staff-size {})\n'.format(staff_size))
-        version = dot_kodou_commands.get("ly_version", LY_MIN_VERSION)
+        version = dotfile_commands_dict.get("ly_version", LY_MIN_VERSION)
         f.write('\\version "{}"\n'.format(version))
-        language = dot_kodou_commands.get("ly_language", LY_DEFAULT_LANG)
+        language = dotfile_commands_dict.get("ly_language", LY_DEFAULT_LANG)
         f.write('\\language "{}"\n'.format(language))
-        load_ekmelily = dot_kodou_commands.get("load_ekmelily", LOAD_EKMELILY)
+        load_ekmelily = dotfile_commands_dict.get("load_ekmelily", LOAD_EKMELILY)
         if load_ekmelily == "yes":
             f.write('\\include "ekmel.ily"\n')
-            # In order to choose a style, ekmelily should be loaded!
-            ekmelic_style = dot_kodou_commands.get("ekmelic_style", "rhm")
+            # In order to choose a style, ekmelily must be loaded
+            ekmelic_style = dotfile_commands_dict.get("ekmelic_style", "rhm")
             f.write('\\ekmelicStyle {}\n'.format(ekmelic_style))
         # what r these?
         f.write("\n")
@@ -502,7 +513,4 @@ def prepare_ly(ly_path, kodourc, paperpart_global_ly_commands):
         for command in paperpart_global_ly_commands:
             f.write(command)
             f.write("\n")
-        f.write("\n" * 4)
-    viewer = dot_kodou_commands.get("pdf_viewer", "/usr/bin/zathura")
-    lilypond = dot_kodou_commands.get("ly_bin", "/usr/local/bin/lilypond")
-    return viewer, lilypond
+        f.write("\n")

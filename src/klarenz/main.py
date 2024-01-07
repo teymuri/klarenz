@@ -4,9 +4,15 @@ from os.path import (expanduser, abspath)
 
 from .version import *
 from .classes import (Part, _PaperPart)
-from .process import (prepare_ly, dict_integration_ip, dict_integrate)
-from .const import (GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
-                    PDFVIEW_WAIT, DOTFILE)
+from .process import (
+    prepare_ly_ip, dict_integration_ip, dict_integrate,
+    get_dotfile_commands
+)
+from .const import (
+    GLOBAL_METADATA, LP_OUTPUT_FORMATS, 
+    PDFVIEW_WAIT, DOTFILE,
+    PDF_VIEWER, LY_BIN
+)
 
 
 
@@ -16,25 +22,25 @@ def proc(score,
          path="/tmp",
          dotfile=DOTFILE,
          outputs=["pdf"],
-         viewpdf=True):
+         viewpdf=True,
+         write_score_items_only=False
+        ):
     """the main processing function"""
     dotfile = expanduser(dotfile)
     path_ = expanduser(path)
     # add missing md from GLOBALS to metadata
     # dict_integration_ip(metadata, GLOBAL_METADATA)
     updated_md = dict_integrate(metadata, GLOBAL_METADATA)
-    # check whether solo or ensemble
+    # Check whether solo or ensemble
     if isinstance(score, list) or isinstance(score, tuple):
         solo = False
         score_template = ["\n\\score {\n<<\n", " >>\n}"]
         updated_part_md = []
         for part in score:
-            # dict_integration_ip(part.metadata, metadata)
             updated_part_md.append(dict_integrate(part.metadata, updated_md))
     elif isinstance(score, Part):
         solo = True
         score_template = ["\n\\score {\n", "\n}"]
-        # dict_integration_ip(score.metadata, metadata)
         updated_score_md = dict_integrate(score.metadata, updated_md)
     else:
         raise TypeError("Invalid Parts!")
@@ -45,9 +51,7 @@ def proc(score,
     non_midi_formats = set(outputs).difference(("midi", "mid"))
     if non_midi_formats: # write ly data
         if solo: # score is a Part object
-            # breakpoint()
             paper_part = _PaperPart(score.events, updated_score_md)
-            # paper_part = _PaperPart(score)
             # part want add something at top of the ly file
             parts_global_ly_commands = paper_part.global_ly_commands  #  a list of strings
             score_template.insert(1, " \{}".format(paper_part.who))
@@ -59,16 +63,22 @@ def proc(score,
                 score_template.insert(idx, " \{}\n".format(part.who))
                 # does part want add something at the top of the ly file?
                 parts_global_ly_commands.extend(part.global_ly_commands)
-            staff = "".join(["".join(part.staff.deploy()) for part in paper_parts])
-        # prepare ly file
+            staff = "\n".join(["".join(part.staff.deploy()) for part in paper_parts])
+        # prepare ly file (BAD: prepare_ly_ip also writes to file, not only preparing...)
         ly_name = ".".join((file_name, "ly"))
         ly_path = "/".join((path_, ly_name))
-        viewer, lilypond = prepare_ly(ly_path, dotfile, parts_global_ly_commands)
+        if not write_score_items_only:
+            prepare_ly_ip(ly_path, dotfile, parts_global_ly_commands)
+        else: # Clean up the ly file, otherwise the open with 'a' flag below will append to the lastly written ly_path
+            open(ly_path, 'w').close()
+        dotfile_commands_dict = get_dotfile_commands(dotfile)
+        viewer = dotfile_commands_dict.get("pdf_viewer", PDF_VIEWER)
+        lilypond = dotfile_commands_dict.get("ly_bin", LY_BIN)
         # write to ly file
         with open(ly_path, "a") as ly:
-            ly.write("%%%%%%%%%%%%%\n%%% Parts %%%\n%%%%%%%%%%%%%\n")
+            ly.write("%%% Load parts and score %%%\n")
             ly.write(staff)
-            ly.write("\n\n%%%%%%%%%%%%%\n%%% Score %%%\n%%%%%%%%%%%%%\n")
+            ly.write("\n") # Can I get rid of this newline?
             ly.write("".join(score_template))
         # Compiling only if we need corresponding formats
         if "pdf" in outputs: # or svg or png or jpg ....
