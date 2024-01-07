@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "klarenz"
-version = "1.2.0"
+version = "1.2.1"
 authors = [
     { name="Amir Teymuri", email="amiratwork22@gmail.com" }, 
 ]
@@ -16,6 +16,9 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU Affero General Public License v3",
     "Operating System :: OS Independent",
+]
+dependencies = [
+    'pytest',
 ]
 
 [project.urls]

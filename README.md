@@ -1,13 +1,13 @@
 
-[__Klarenz__](https://en.wikipedia.org/wiki/Clarence_Barlow) is a highly minimalist (the entire API consists of a single class `Part` and a main processor function `proc`!) and Pythonic package for compiling Lilypond sheet music.
+[__Klarenz__](https://en.wikipedia.org/wiki/Clarence_Barlow) (current release: __v1.2.1__) is a highly minimalist (the entire API consists of a single class `Part` and a main processor function `proc`!) and Pythonic package for compiling Lilypond sheet music.
 
 For more information and examples please check the [Documentation](https://teymuri.github.io/klarenz-docs/).
 
-# Current release: v1.2.0
+# Contributing
 
-# Packaging
-Ensure to update the `src/klarenz/version.py` file and run `python prebuild.py` (and push the changes!) before
-initiating the build-upload process for each release with:
+If you wish to contribute your code to this repository, please consider the following points:
+- Packaging
+  - Ensure to update the `src/klarenz/version.py` file and run `python prebuild.py` (and push the changes!) before initiating the build-upload process for each release with:
 
 ```
 python -m build && twine upload dist/*
