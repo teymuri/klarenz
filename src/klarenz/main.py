@@ -18,8 +18,7 @@ from .const import (
 
 
 def print_banner(dotfile_cmds):
-    print(f"Klarenz v{version}")
-    print(f"LilyPond v{dotfile_cmds['ly_version']}")
+    print(f"Klarenz version {version} [LilyPond {dotfile_cmds['ly_version']}]")
     for cp in CPS:
         print(cp)
 
