@@ -1,9 +1,11 @@
-from subprocess import *
+import subprocess
 from time import sleep
 from os.path import (expanduser, abspath)
-
 from .version import *
-from .classes import (Part, _PaperPart)
+from .copyr import *
+from .classes import (
+    Part, _PaperPart
+)
 from .process import (
     prepare_ly_ip, dict_integration_ip, dict_integrate,
     get_dotfile_commands
@@ -14,6 +16,12 @@ from .const import (
     PDF_VIEWER, LY_BIN
 )
 
+
+def print_banner(dotfile_cmds):
+    print(f"Klarenz v{version}")
+    print(f"LilyPond v{dotfile_cmds['ly_version']}")
+    for cp in CPS:
+        print(cp)
 
 
 def proc(score,
@@ -85,15 +93,15 @@ def proc(score,
             compile_flags = set(LP_OUTPUT_FORMATS.keys()).intersection(non_midi_formats)
             compile_flags = " ".join([LP_OUTPUT_FORMATS[flag] for flag in compile_flags])
             lilypond_popenargs = [lilypond, "-o", "/".join((path_, file_name)), compile_flags, ly_path]
-            print(f"%%% Klarenz {version} %%%")
-            Popen(lilypond_popenargs)
+            print_banner(dotfile_commands_dict)
+            subprocess.Popen(lilypond_popenargs, shell=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             # Viewing the pdf
             if viewpdf:
                 pdf_name = ".".join((file_name, "pdf"))
                 pdf_path = "/".join((path_, pdf_name))
                 viewer_popenargs = [viewer, pdf_path]
                 sleep(PDFVIEW_WAIT)
-                Popen(viewer_popenargs)
+                subprocess.Popen(viewer_popenargs)
         # Check if str-return needed (mainly for testing purposes)
         if "str" in outputs:
             with open(ly_path, "r") as file:
