@@ -40,6 +40,22 @@ readme = f"""
 
 For more information and examples please check the [Documentation](https://teymuri.github.io/klarenz-docs/).
 
+# Some Coding Tips
+Convert a collection of durations into a progressing beats collection by utilizing `itertools.accumulate`:
+
+```python
+from random import choice
+from itertools import accumulate
+
+durs = [choice([.25, .5, .75, 1]) for _ in range(4)]
+beats = list(accumulate(durs, initial=0))
+print(f"Durations: {durs}")
+print(f"Beats: {beats}")
+
+# Durations: [0.25, 0.5, 0.5, 0.75]
+# Beats: [0, 0.25, 0.75, 1.25, 2.0]
+```
+
 # Contributing
 
 If you wish to contribute your code to this repository, please consider the following points:
