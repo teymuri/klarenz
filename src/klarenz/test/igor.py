@@ -65,6 +65,6 @@ v1_beats = list(accumulate(v1_durs, initial=0))
 v1_part = K.Part({"notes": v1_notes, "beats": v1_beats, "durs": {k:v for k, v in zip(v1_beats, v1_durs)}},
                {"clef": {"default": "treble"}, "timesig": {k: v for k, v in bar_patt}})
 
-# K.proc([v1_part])
+K.proc([v1_part, cello_part])
 
 # proc(K.Part({"notes": range(60, 78), "beats": range(78-60)}))
