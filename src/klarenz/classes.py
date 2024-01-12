@@ -296,6 +296,8 @@ class _Duration:
         with stream beats, they should be also Fractions"""
         fractionized = dict()
         if any([isinstance(v, dict) for v in durations.values()]):
+            breakpoint()
+            print("debug", v)
             self.polyphon = True
             for voice in sorted(durations):
                 fractionized[voice] = dict()
